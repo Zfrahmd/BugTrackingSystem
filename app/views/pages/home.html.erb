@@ -1,1 +1,11 @@
-hellow world
+Welcome to Bug Tracking System
+
+<% if current_user%>
+    <p>You are a [<%= current_user.user_type%>]</p>
+    <p>You have succesfully logged into your account.</p>
+    <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+<% else %>
+    <p>You are not signed in</p>
+    <%= link_to "Sign Up", new_user_registration_path%> | 
+    <%= link_to "Sign In", new_user_session_path%>
+<% end %>
