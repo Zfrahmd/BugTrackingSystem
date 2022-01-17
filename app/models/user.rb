@@ -15,5 +15,4 @@ class User < ApplicationRecord
     self.user_type ||= :user
   end
 
-  
 end
