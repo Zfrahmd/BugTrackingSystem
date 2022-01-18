@@ -9,7 +9,8 @@ Welcome to Bug Tracking System
     <% else %>
         <p>There are <%= User.count %> users in the system</p>
     <% end %>
-    
+    <%= link_to 'View Projects', projects_path %><br />
+    <%= link_to 'Edit details', edit_user_registration_path %> |
     <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
 
 <% else %>

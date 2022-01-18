@@ -1,0 +1,27 @@
+<h1>Update Project</h1>
+<% if @project.errors.any?%>
+    <h4 class="alert-heading">Errors occured while inserting information in form</h4>
+    <ul>
+        <% @project.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<%= form_with(model: @project, local: true) do |f| %>
+    
+    <p>
+        <%= f.label :project_name %><br/>
+        <%= f.text_field :project_name %>
+    </p>
+
+    <p>
+        <%= f.label :description%><br/>
+        <%= f.text_area :description%>
+    </p>
+
+    <p>
+        <%= f.submit%>
+    </p>
+
+<% end %>

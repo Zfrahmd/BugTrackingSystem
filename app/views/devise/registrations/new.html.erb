@@ -23,7 +23,7 @@
 
   <div class="field">
     <%= f.label :user_type %><br />
-    <%= f.select :user_type, options_for_select([["user", :user], ["developer", :developer], ["manager", :manager]]) %>
+    <%= f.select(:user_type, User.user_types.keys.map {|key| [key.humanize, key]}) %>
   </div>
 
   <%= resource.user_type %>

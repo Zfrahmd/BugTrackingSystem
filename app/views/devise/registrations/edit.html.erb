@@ -30,6 +30,11 @@
     <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
+  
+  <div class="field">
+    <%= f.label :user_type %><br />
+    <%= f.select(:user_type, User.user_types.keys.map {|key| [key.humanize, key]}) %>
+  </div>
 
   <div class="actions">
     <%= f.submit "Update" %>

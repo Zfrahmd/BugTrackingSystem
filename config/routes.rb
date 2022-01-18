@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
+  # for devise user controller overwrite
   devise_for :users, controllers: { sessions: 'users/sessions'}
-  
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   
   root 'pages#home'
   
+  # get all routes prebuilt for your custom model 
+  resources :projects, only: [:show, :index, :new, :create, :edit, :update, :destroy]
 
 end
