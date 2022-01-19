@@ -1,0 +1,40 @@
+
+<h2><strong>All Bugs</strong></h2>
+<table class="article_table">
+    <thead>
+        <tr>
+            <th class = "article_table_cell">No.</th>
+            <th class = "article_table_cell">Bug Title</th>
+            <th class = "article_table_cell">Description</th>
+            <th class = "article_table_cell">Bug Type</th>
+            <th class = "article_table_cell">Feature Status</th>
+            <th class = "article_table_cell">Bug Status</th>
+            <th class = "article_table_cell">Deadline</th>
+            <th colspan = "3" class = "article_table_cell">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% @bugs.each do |bug| %>
+        <tr>
+            <td class = "article_table_cell"><%= bug.id %></td>
+            <td class = "article_table_cell"><%= bug.title%></td>
+            <td class = "article_table_cell"><%= bug.description%></td>
+            <td class = "article_table_cell"><%= bug.bug_type%></td>
+            <td class = "article_table_cell"><%= bug.feature_status%></td>
+            <td class = "article_table_cell"><%= bug.bug_status%></td>
+            <td class = "article_table_cell"><%= bug.deadline%></td>
+            <td class = "article_table_cell"><%= link_to 'View', bug_path(bug.id), class: "btn btn-success" %></td>
+            <td class = "article_table_cell"><%= link_to 'Edit', edit_bug_path(bug.id), class: "btn btn-primary"%></td>
+            <td class = "article_table_cell"><%= link_to 'Remove', bug_path(bug.id), method: :delete, data: {confirm: "Are You Sure you want to delete this project?"}, class: "btn btn-danger"%></td>
+        </tr>
+        
+    <% end %>
+    </tbody>
+</table>
+
+<p>
+    <%= link_to 'Create a new Bug', new_bug_path, class: "btn btn-success" %> | 
+    <%= link_to 'Home', root_path, class: "btn btn-success" %>
+</p>
+
+

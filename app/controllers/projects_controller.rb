@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
     
     def index
         @projects = Project.all
+        @users = User.all
     end
 
     def new
@@ -34,7 +35,7 @@ class ProjectsController < ApplicationController
     def update
         @project = Project.find(params[:id])
         if @project.update(params.require(:project).permit(:project_name, :description))
-            flash[:notice] = "Artical was updated successfully"
+            flash[:notice] = "Project was updated successfully"
             redirect_to project_path(@project.id)
           else
             render :edit, status: :unprocessable_entity

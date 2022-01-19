@@ -1,0 +1,53 @@
+<h1>Create a new Bug</h1>
+<% if @bug.errors.any?%>
+    <h4 class="alert-heading">Errors occured while inserting information in form</h4>
+    <ul>
+        <% @bug.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+        <% end %>
+    </ul>
+<% end %>
+
+<%= form_with scope: :bug, url: bugs_path, local: true do |f| %>
+    <p>
+        <%= f.label :bug_title %><br/>
+        <%= f.text_field :title %>
+    </p>
+
+    <p>
+        <%= f.label :description%><br/>
+        <%= f.text_area :description, rows:5, cols:30%>
+    </p>
+
+    <p>
+        <%= f.label :bug_type%><br/>
+        <%= f.select :bug_type, options_for_select([["Feature", 0], ["Bug", 1]]) %>
+    </p>
+
+    <p>
+        <%= f.label :feature_status%><br/>
+        <%= f.select :feature_status, options_for_select([["New", 0], ["Started", 1], ["Completed", 2]]) %>
+    </p>
+
+    <p>
+        <%= f.label :bug_status%><br/>
+        <%= f.select :bug_status, options_for_select([["New", 0], ["Started", 1], ["Resolved", 2]]) %>
+    </p>
+
+    <p>
+    <%= f.label :select_project%><br/>
+    <%= f.text_field :project_id %>
+    </p>
+
+    <div>
+    <%= f.label :image%>
+    <%= f.file_field :image%>
+    </div>
+
+
+    <p>
+        <%= f.submit%>
+    </p>
+<% end %>
+
+<p><%= link_to 'Cancel', bugs_path%></p>

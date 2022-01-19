@@ -1,15 +1,16 @@
-Welcome to Bug Tracking System
+<p><%= "Welcome #{current_user.username} to Bug Tracking System"%></p>
 
 <% if current_user%>
-    <p>You are a [<%= current_user.user_type%>]</p>
     <p>You have successfully logged into your account.</p>
-    
+    <p>You are a [<%= current_user.user_type%>]</p>
+
     <% if User.count == 1 %>
         <p>There is <%= User.count %> user in the system</p>
     <% else %>
         <p>There are <%= User.count %> users in the system</p>
     <% end %>
-    <%= link_to 'View Projects', projects_path %><br />
+    <%= link_to 'View Projects', projects_path %> |
+    <%= link_to 'View Bugs', bugs_path %><br /> 
     <%= link_to 'Edit details', edit_user_registration_path %> |
     <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
 
