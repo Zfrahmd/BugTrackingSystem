@@ -5,10 +5,10 @@ class Bug < ApplicationRecord
   # validations for model    
   validates :title, presence: true, length: {minimum: 6, maximum: 100}
   validates :description, presence: true, length: {minimum: 10, maximum: 500} 
-  validate :correct_document_mime_type
+  validate :correct_image_type
   
   private
-  def correct_document_mime_type
+  def correct_image_type
     if image.attached? && !image.content_type.in?(%w(image/png image/gif))
       errors.add(:image, 'Must be a png or a gif file')
     end
