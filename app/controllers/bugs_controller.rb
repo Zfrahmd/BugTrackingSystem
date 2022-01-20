@@ -1,5 +1,4 @@
 class BugsController < ApplicationController
-
     def show
         @bug = Bug.find(params[:id])
     end
@@ -14,7 +13,9 @@ class BugsController < ApplicationController
     end
 
     def create
-        @bug = Bug.new(params.require(:bug).permit(:title, :description, :bug_type, :feature_status, :bug_status, :deadline, :project_id, :image))
+        @user = current_user
+        @bug = @user.bugs.build(params.require(:bug).permit(:title, :description, :bug_type, :feature_status, :bug_status, :deadline, :project_id, :image))
+        #@bug = Bug.new(params.require(:bug).permit(:title, :description, :bug_type, :feature_status, :bug_status, :deadline, :project_id, :image))
         if @bug.save
             flash[:notice] = "Bug created successfully"
             redirect_to bug_path(@bug.id)

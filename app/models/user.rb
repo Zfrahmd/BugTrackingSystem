@@ -8,6 +8,7 @@ class User < ApplicationRecord
          :validatable
   
   has_many :projects
+  has_many :bugs
 
   enum user_type: [:user, :qa, :developer, :manager]
 

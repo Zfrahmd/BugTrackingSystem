@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-
     # These are controller functions or actions
 
     def show
@@ -18,7 +17,9 @@ class ProjectsController < ApplicationController
     end
 
     def create
-        @project = Project.new(params.require(:project).permit(:project_name, :description))
+        @user = current_user
+        @project = @user.projects.build(params.require(:project).permit(:project_name, :description))
+        #@project = Project.new(params.require(:project).permit(:project_name, :description))
 
         if @project.save
             flash[:notice] = "Article was Saved Successfully"
@@ -46,6 +47,5 @@ class ProjectsController < ApplicationController
         @project = Project.find(params[:id])
         @project.destroy
         redirect_to projects_path
-
     end
 end

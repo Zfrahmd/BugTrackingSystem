@@ -1,3 +1,10 @@
+<style>
+.article_table_cell
+{
+    padding:5px 10px 5px 10px;
+}
+</style>
+
 
 <h2><strong>All Bugs</strong></h2>
 <table class="article_table">
@@ -7,6 +14,7 @@
             <th class = "article_table_cell">Bug Title</th>
             <th class = "article_table_cell">Description</th>
             <th class = "article_table_cell">Bug Type</th>
+            <th class = "article_table_cell">Belongs to User</th>
             <th class = "article_table_cell">Feature Status</th>
             <th class = "article_table_cell">Bug Status</th>
             <th class = "article_table_cell">Deadline</th>
@@ -20,6 +28,7 @@
             <td class = "article_table_cell"><%= bug.title%></td>
             <td class = "article_table_cell"><%= bug.description%></td>
             <td class = "article_table_cell"><%= bug.bug_type%></td>
+            <td class = "article_table_cell"><%= bug.user_id%></td>
             <td class = "article_table_cell"><%= bug.feature_status%></td>
             <td class = "article_table_cell"><%= bug.bug_status%></td>
             <td class = "article_table_cell"><%= bug.deadline%></td>
@@ -32,9 +41,11 @@
     </tbody>
 </table>
 
+
 <p>
-    <%= link_to 'Create a new Bug', new_bug_path, class: "btn btn-success" %> | 
+        <%= link_to 'Create a new Bug', new_bug_path, class: "btn btn-success" %> |
     <%= link_to 'Home', root_path, class: "btn btn-success" %>
 </p>
+
 
 

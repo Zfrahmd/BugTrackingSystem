@@ -21,22 +21,27 @@
 
     <p>
         <%= f.label :bug_type%><br/>
-        <%= f.select :bug_type, options_for_select([["Feature", 0], ["Bug", 1]]) %>
+        <%= f.select(:bug_type, Bug.bug_types.keys.map {|key| [key.humanize, key]}) %>
     </p>
 
     <p>
         <%= f.label :feature_status%><br/>
-        <%= f.select :feature_status, options_for_select([["New", 0], ["Started", 1], ["Completed", 2]]) %>
+        <%= f.select(:feature_status, Bug.feature_statuses.keys.map {|key| [key.humanize, key]}) %>
     </p>
 
     <p>
         <%= f.label :bug_status%><br/>
-        <%= f.select :bug_status, options_for_select([["New", 0], ["Started", 1], ["Resolved", 2]]) %>
+        <%= f.select(:bug_status, Bug.bug_statuses.keys.map {|key| [key.humanize, key]}) %>
     </p>
 
     <p>
     <%= f.label :select_project%><br/>
-    <%= f.number_field :project_id %>
+    <%= f.select :project_id, Project.all.collect {|key| [ key.project_name, key.id ] } %>
+    </p>
+
+    <p>
+    <%= f.label :deadline%><br/>
+    <%= f.datetime_field :deadline %>
     </p>
 
     <div>

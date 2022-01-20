@@ -1,6 +1,7 @@
 class Project < ApplicationRecord
     # associations
     has_many :bugs
+    #has_many :users
     belongs_to :user
 
     
