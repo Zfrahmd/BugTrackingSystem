@@ -9,11 +9,15 @@ class ProjectsController < ApplicationController
     
     def index
         @projects = Project.all
-        @users = User.all
+    end
+
+    def manage
+        @projects = Project.all
     end
 
     def new
         @project = Project.new
+        authorize! :create, @project
     end
 
     def create
@@ -22,7 +26,7 @@ class ProjectsController < ApplicationController
         #@project = Project.new(params.require(:project).permit(:project_name, :description))
 
         if @project.save
-            flash[:notice] = "Article was Saved Successfully"
+            flash[:notice] = "Project was created successfully"
             redirect_to project_path(@project.id)
         else
             render :new, status: :unprocessable_entity
@@ -31,6 +35,7 @@ class ProjectsController < ApplicationController
 
     def edit
         @project = Project.find(params[:id])
+        authorize! :update, @project
     end
 
     def update
@@ -38,14 +43,15 @@ class ProjectsController < ApplicationController
         if @project.update(params.require(:project).permit(:project_name, :description))
             flash[:notice] = "Project was updated successfully"
             redirect_to project_path(@project.id)
-          else
+        else
             render :edit, status: :unprocessable_entity
-          end
+        end
     end
 
     def destroy
         @project = Project.find(params[:id])
+        authorize! :destroy, @project
         @project.destroy
-        redirect_to projects_path
+        redirect_to manage_projects_path
     end
 end

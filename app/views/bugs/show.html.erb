@@ -1,13 +1,34 @@
-<h2>Bugs Detail</h2>
+<div class="container py-3 my-5 bg_container">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h2><strong>Bug Detail</strong></h2>
+            <hr class="my-4">
+        </div>
+    </div>        
 
-<p><strong>Title: </strong><%= @bug.title%></p>
-<p><strong>Description: </strong><%= @bug.description%></p>
-<p><strong>Bug Type: </strong><%= @bug.bug_type%></p>
-<p><strong>Feature Status: </strong><%= @bug.feature_status%></p>
-<p><strong>Bug Status: </strong><%= @bug.bug_status%></p>
-<p><strong>Deadline: </strong><%= @bug.deadline%></p>
-<%= image_tag @bug.image, style: "width: 200px; height: 200px" if @bug.image.attached?  %>
-<p><%= link_to 'Edit', edit_bug_path(@bug.id) %></p>
-<p><%= link_to 'Delete', bug_path(@bug.id), method: :delete, data: {confirm: "Are You Sure you want to delete this project?"} %></p>
-<p><%= link_to 'All Bugs', bugs_path%></p>
+    <div class="text-center">
+        <p>Title: <%= @bug.title%></p>
+        <p>Description: <%= @bug.description%></p>
+        <p>Bug Type: <%= @bug.bug_type%></p>
+        <p>Belongs to User: &nbsp;<%= @bug.user_id%></p>
+        <p>Belongs to Project: &nbsp;<%= @bug.project_id%></p>
+        <p>Feature Status: <%= @bug.feature_status%></p>
+        <p>Bug Status: <%= @bug.bug_status%></p>
+        <p>Deadline: <%= @bug.deadline%></p>
+    </div>
+    <div class="text-center"> 
+        <%= image_tag @bug.image, style: "width: 200px; height: 200px" , id:"bug_image" if @bug.image.attached?%>
+    </div>
+    <div class="py-3">    
+        <p class="text-center">
+            <% if can? :update, @bug %>
+                <%= link_to 'Edit', edit_bug_path(@bug.id), class:"btn btn-outline-success" %>
+            <% end %>
+            <% if can? :destroy, @bug %>
+                <%= link_to 'Delete', bug_path(@bug.id), method: :delete, data: {confirm: "Are You Sure you want to delete this project?"}, class:"btn btn-outline-danger" %>
+            <% end %>
+            <%= link_to 'All Bugs', bugs_path, class:"btn btn-outline-primary"%>
+        </p>
+    </div>
+</div>
 

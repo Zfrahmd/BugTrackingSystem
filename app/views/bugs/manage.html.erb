@@ -1,0 +1,35 @@
+<div class="container py-3 my-5 bg_container text-center">
+    <div class="row">
+    <h2><strong>All Bugs</strong></h2>
+    </div>
+    <hr class="my-4">
+
+    <div class="row">     
+        <% if @bugs.exists? %>
+            <% @bugs.each do |bug|%>
+                <div class="col-sm-4 py-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>Bug Id: &nbsp;<%= bug.id %></p>
+                            <p class="card-title"><%= truncate(bug.title, length: 32)%></p>
+                            <p class="card-text"><%= truncate(bug.description, length: 32)%></p>
+                            <p>Bug Type: <%= bug.bug_type%></p>
+                            <p>Belongs to User: &nbsp;<%= bug.user_id%></p>
+                            <p>Belongs to Project: &nbsp;<%= bug.project_id%></p>
+                            <p>Feature Status: &nbsp;<%= bug.feature_status%></p>
+                            <p>Bug Status: &nbsp;<%= bug.bug_status%></p>
+                            <p>Deadline: &nbsp;<%= bug.deadline%></p>
+                            <%= link_to 'View', bug_path(bug.id), class: "btn btn-outline-primary" %>
+                            <% if can? :update, bug %>
+                                <%= link_to 'Edit', edit_bug_path(bug.id), class: "btn btn-outline-primary"%></td>
+                            <% end %>
+                            <% if can? :destroy, bug %>
+                                <%= link_to 'Remove', bug_path(bug.id), method: :delete, data: {confirm: "Are You Sure you want to delete this project?"}, class: "btn btn-outline-danger"%>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>        
+        <% end %>
+    </div>
+</div>

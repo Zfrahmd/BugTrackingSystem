@@ -1,0 +1,55 @@
+<!-- navigation starts-->
+<nav class="navbar navbar-expand-sm navigation">
+  <div class="container-fluid">
+    <%= link_to 'Bug Tracking System', root_path, class: "nav-link active link_logo" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <% if current_user%>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Projects
+            </a>
+            <ul class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
+              <% if can? :create, Project %>
+                <li><p class= "text-center"><%= link_to 'Create New Project', new_project_path, class: "dropdown-item" %></li></p>
+              <% end %>
+              <li><p class= "text-center"><%= link_to 'View Projects', projects_path, class: "dropdown-item" %></li></p>
+              <li><p class= "text-center"><%= link_to 'Manage Projects', manage_projects_path, class: "dropdown-item" %></li></p>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Bugs
+            </a>
+            <ul class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
+              <% if can? :create, Bug %>
+                <li><p class= "text-center"><%= link_to 'Create New Bug', new_bug_path, class: "dropdown-item" %></li></p>
+              <% end %>
+              <li><p class= "text-center"><%= link_to 'View Bugs', bugs_path, class: "dropdown-item" %></li></p>
+              <li><p class= "text-center"><%= link_to 'Manage Bugs', manage_bugs_path, class: "dropdown-item" %></li></p>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Users
+            </a>
+            <ul class="dropdown-menu animate slideIn" aria-labelledby="navbarDropdown">
+              <li><p class= "text-center"><%= link_to 'View Users', users_path, class: "dropdown-item" %></li></p>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+      <% if current_user%>
+        <div><strong><i class="px-2 text-muted" ><%= current_user.user_type.capitalize%></i></strong></div>
+        <div><%= link_to "Profile", user_path(current_user.id), class: " btn btn-outline-success text-white mx-2"%></div>
+        <div><%= link_to "Sign Out", destroy_user_session_path, method: :delete, class: "btn btn-outline-warning text-white" %></div>
+      <% else %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-outline-success text-white mx-2"%>
+        <%= link_to "Log In", new_user_session_path, class: "btn btn-outline-primary text-white"%>
+      <% end %>
+    </div>
+  </div>
+</nav>

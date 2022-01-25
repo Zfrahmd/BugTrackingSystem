@@ -1,0 +1,26 @@
+<div class="container py-3 my-5 bg_container">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <% if current_user.id == @user.id%>
+                <h2><strong>Your Profile</strong></h2>
+            <% else %>
+                <h2><strong>User Profile</strong></h2>
+            <% end %>
+            <hr class="my-4">
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-6 text-center">
+            <p><strong>Role: <i id="role_text"><%= @user.user_type.capitalize%></i></p>
+            <p><strong>Name: </strong><%= @user.username %></p>
+            <p><strong>Email: </strong><%= @user.email%></p>
+            <% if current_user.id == @user.id %>
+                <p><%= link_to 'Edit Profile', edit_user_registration_path(current_user.id), class: "btn btn-outline-primary" %></p>
+                <p><%= link_to 'Delete My Account', user_registration_path, method: :delete, data: {confirm: "Are You Sure you want to delete your account?"}, class: "btn btn-outline-danger"%></p>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+

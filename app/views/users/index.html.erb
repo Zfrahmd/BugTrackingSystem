@@ -1,0 +1,29 @@
+<div class="container py-3 my-5 bg_container text-center">
+    <div class="row">
+        <h2><strong>All Users</strong></h2>
+    </div>
+
+    <div class="row">
+        <% if @users.exists? %>
+            <% @users.each do |user|%>
+                <div class="col-sm-4 py-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <p>User Id: &nbsp;<%= user.id%></p>
+                            <p class="card-title">Username: &nbsp;<%= user.username%></p>
+                            <p class="card-text">Role: &nbsp;<i id="role_text"><%= user.user_type.capitalize%></i></p>
+                            <p>Email: &nbsp;<%= user.email%></p>
+                            <%= link_to 'View', user_path(user.id), class: "btn btn-outline-primary" %>
+                            <% if current_user.id == user.id %>
+                                <%= link_to 'Edit details', edit_user_registration_path, class: "btn btn-outline-success" %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>        
+        <% end %>
+    </div>
+    <p>
+        <%= link_to 'Home', root_path, class: "btn btn-outline-success" %>
+    </p>
+</div>

@@ -1,0 +1,85 @@
+<div class="row justify-content-center">
+    <div class="col-6 text-center">
+        <%= form_with(model: @bug, local: true)  do |f| %>
+            <p>
+                <%= f.label :bug_title %><br/>
+                <%= f.text_field :title, class:"form-control" %>
+            </p>
+
+            <p>
+                <%= f.label :description%><br/>
+                <%= f.text_area :description, rows:5, cols:30, class:"form-control"%>
+            </p>
+
+            <div class="my-2">
+                <%= f.label :bug_type %><br />
+                <%= f.label :bug_type, "Feature", :value => "feature"  %>
+                <%= f.radio_button :bug_type, "feature", onclick:" checkButton()", class:"form-check-input", id:"feature"%>
+                <%= f.label :bug_type, "Bug", :value => "bug"%>
+                <%= f.radio_button :bug_type, "bug", onclick:" checkButton()", class:"form-check-input", id:"bug" %>
+            </div>
+
+            <div class="div">
+                <p class="alert_bug_type_selection" id="para"></p>
+            </div>
+
+            <div id="panel1">
+                <p>
+                    <%= f.label :feature_status%><br/>
+                    <%= f.select(:feature_status, Bug.feature_statuses.keys.map {|key| [key.humanize, key]}, {}, {class:"form-select"}) %>
+                </p>
+            </div>
+
+            <div id="panel2">
+                <p>
+                    <%= f.label :bug_status%><br/>
+                    <%= f.select(:bug_status, Bug.bug_statuses.keys.map {|key| [key.humanize, key]}, {}, {class:"form-select"}) %>
+                </p>
+            </div>
+
+            <p>
+            <%= f.label :select_project%><br/>
+            <%= f.select :project_id, Project.all.collect {|key| [ key.project_name, key.id ] }, {}, {class:"form-select"} %>
+            </p>
+
+            <p>
+            <%= f.label :deadline%><br/>
+            <%= f.datetime_field :deadline, class:"form-control" %>
+            </p>
+
+            <div class="my-3">
+                <%= f.label :image, class:"form-label" do %>
+                    <% if f.object.image.attached? %>
+                        File attached: <i id="role_text"><%= f.object.image.filename %></i>. Choose to replace it.
+                    <% else %>
+                        No file has been uploaded yet. Please pick a file.
+                    <% end %>
+                <% end %>
+                <%= f.file_field :image, class:"form-control"%>
+            </div>
+
+            <p>
+                <%= f.submit class:"btn btn-outline-success"%>
+            </p>
+        <% end %>
+        <p><%= link_to 'Cancel', bugs_path, class:"btn btn-outline-primary"%></p>
+    </div>
+</div>
+
+<script>
+    var box1= document.querySelector('#panel1')
+    var box2= document.querySelector("#panel2")
+    
+    function checkButton(){
+    if(document.getElementById('feature').checked) { 
+        document.getElementById("para").innerHTML = "You have selected type: " + document.getElementById("feature").value + ". Please select below";
+        box1.style.display = "block"
+        box2.style.display = "none" 
+        }
+    else { 
+        document.getElementById("para").innerHTML = "You have selected type: " + document.getElementById("bug").value + ". Please select below";
+        box1.style.display = "none"
+        box2.style.display = "block"   
+    }
+    }
+</script>

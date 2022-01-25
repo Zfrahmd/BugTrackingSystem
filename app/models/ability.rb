@@ -6,9 +6,19 @@ class Ability
   def initialize(user)
 
     if user.manager?
-      can :manage, :all
-    elsif user
-      can :create, :Bug
+      can :manage, :all 
+
+    elsif user.qa?
+      can :create, Bug
+      can [:update, :destroy], Bug do |bug|
+        bug.user == user
+      end
+    elsif user.developer?
+      can :update, Bug
+      can :read, Project
+    # when user is normal user
+    else
+      can :read, :all
     end
     
 

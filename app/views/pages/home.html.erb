@@ -1,23 +1,47 @@
-<%= stylesheet_link_tag "custom", "data-turbo-track": "reload" %>
+<div class="jumbotron home_banner text-white">
+    <h3 class="text-center"><strong>Bug Tracking System</strong></h3>
+    <p class="py-3">Welcome to Bug Tracking Sytem. Here manager can assign QA & Developer to a project.
+        Quality Assurance can add bug to a project while developer will solve that bug.
+    </p>
+    <hr class="my-4">
 
-<p><%= "Welcome #{current_user.username} to Bug Tracking System"%></p>
+    <% if not current_user%>
+        <p class="text-center">
+            <%= link_to "Create an Account", new_user_registration_path, class: "btn btn-primary text-white"%>
+        </p>
+    <% else%>
+        <p class="text-center">
+            You are a <i id="role_text"><%= (current_user.user_type).capitalize() %></i><br/>   
+        <% if User.count == 1 %>
+            There is <%= User.count %> user in the system
+        <% else %>
+            There are <%= User.count %> users in the system
+        <% end %>
+        </p>
+
+
+    <% end %>
+</div>
 
 <% if current_user%>
-    <p>You have successfully logged into your account.</p>
-    <p>You are a [<%= current_user.user_type%>]</p>
-
-    <% if User.count == 1 %>
-        <p>There is <%= User.count %> user in the system</p>
-    <% else %>
-        <p>There are <%= User.count %> users in the system</p>
-    <% end %>
-    <%= link_to 'View Projects', projects_path %> |
-    <%= link_to 'View Bugs', bugs_path %><br /> 
-    <%= link_to 'Edit details', edit_user_registration_path %> |
-    <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-
-<% else %>
-    <p>You are not signed in</p>
-    <%= link_to "Sign Up", new_user_registration_path%> | 
-    <%= link_to "Sign In", new_user_session_path%>
+    <div class="row py-3 my-5">
+        <h2><strong>All Projects</strong></h2>
+    </div>
+    <div class="div">
+        <div class="row">
+            <% if @projects.exists? %>
+                <% @projects.each do |project|%>
+                    <div class="col-sm-6 py-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= truncate(project.project_name, length: 45)%></h5>
+                                <p class="card-text"><%= truncate(project.description, length: 45)%></p>
+                                <%= link_to 'Read more', project_path(project), class:"btn btn-outline-primary" %>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>        
+            <% end %>
+        </div>
+    </div>
 <% end %>

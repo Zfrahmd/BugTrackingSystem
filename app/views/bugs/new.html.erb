@@ -1,58 +1,11 @@
-<h1>Create a new Bug</h1>
-<% if @bug.errors.any?%>
-    <h4 class="alert-heading">Errors occured while inserting information in form</h4>
-    <ul>
-        <% @bug.errors.full_messages.each do |msg| %>
-            <li><%= msg %></li>
-        <% end %>
-    </ul>
-<% end %>
+<%= render 'shared/bug_errors'%>
 
-<%= form_with scope: :bug, url: bugs_path, local: true do |f| %>
-    <p>
-        <%= f.label :bug_title %><br/>
-        <%= f.text_field :title %>
-    </p>
-
-    <p>
-        <%= f.label :description%><br/>
-        <%= f.text_area :description, rows:5, cols:30%>
-    </p>
-
-    <p>
-        <%= f.label :bug_type%><br/>
-        <%= f.select(:bug_type, Bug.bug_types.keys.map {|key| [key.humanize, key]}) %>
-    </p>
-
-    <p>
-        <%= f.label :feature_status%><br/>
-        <%= f.select(:feature_status, Bug.feature_statuses.keys.map {|key| [key.humanize, key]}) %>
-    </p>
-
-    <p>
-        <%= f.label :bug_status%><br/>
-        <%= f.select(:bug_status, Bug.bug_statuses.keys.map {|key| [key.humanize, key]}) %>
-    </p>
-
-    <p>
-    <%= f.label :select_project%><br/>
-    <%= f.select :project_id, Project.all.collect {|key| [ key.project_name, key.id ] } %>
-    </p>
-
-    <p>
-    <%= f.label :deadline%><br/>
-    <%= f.datetime_field :deadline %>
-    </p>
-
-    <div>
-    <%= f.label :image%>
-    <%= f.file_field :image%>
+<div class="container py-3 my-5 bg_container">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h2><strong>Create a New Bug</strong></h2>
+            <hr class="my-4">
+        </div>
     </div>
-
-
-    <p>
-        <%= f.submit%>
-    </p>
-<% end %>
-
-<p><%= link_to 'Cancel', bugs_path%></p>
+    <%= render 'form'%>
+</div>

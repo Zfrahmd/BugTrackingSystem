@@ -1,5 +1,7 @@
-class PagesController < ActionController::Base
-	before_action :authenticate_user!
-	def home
-	end
+class PagesController < ApplicationController
+  def home
+    @projects = Project.all
+  end
+  #before_action :authenticate_user!
 end
+
