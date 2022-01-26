@@ -1,7 +1,7 @@
 class BugsController < ApplicationController
-    
-    def show
-        @bug = Bug.find(params[:id])   
+    before_action :find_bug, only: [:show, :edit, :update, :destroy]
+
+    def show  
     end
 
     def index
@@ -19,7 +19,7 @@ class BugsController < ApplicationController
 
     def create
         @user = current_user
-        @bug = @user.bugs.build(params.require(:bug).permit(:title, :description, :bug_type, :feature_status, :bug_status, :deadline, :project_id, :image))
+        @bug = @user.bugs.build(bug_params)
         #@bug = Bug.new(params.require(:bug).permit(:title, :description, :bug_type, :feature_status, :bug_status, :deadline, :project_id, :image))
         if @bug.save
             flash[:notice] = "Bug was created successfully"
@@ -30,13 +30,11 @@ class BugsController < ApplicationController
     end
 
     def edit
-        @bug = Bug.find(params[:id])
         authorize! :update, @bug
     end
 
     def update
-        @bug = Bug.find(params[:id])
-        if @bug.update(params.require(:bug).permit(:title, :description, :bug_type, :feature_status, :bug_status, :deadline, :project_id, :image))
+        if @bug.update(bug_params)
             flash[:notice] = "Bug was updated successfully"
             redirect_to bug_path(@bug.id)
         else
@@ -45,10 +43,18 @@ class BugsController < ApplicationController
     end
 
     def destroy
-        @bug = Bug.find(params[:id])
         @bug.destroy
         flash[:notice] = "Bug was deleted successfully"
         authorize! :destroy, @bug
         redirect_to manage_bugs_path
     end
+
+    def find_bug
+        @bug = Bug.find(params[:id])
+    end
+
+    def bug_params
+        params.require(:bug).permit(:title, :description, :bug_type, :feature_status, :bug_status, :deadline, :project_id, :image)
+    end
+    
 end

@@ -1,10 +1,6 @@
 class ProjectsController < ApplicationController
-    # These are controller functions or actions
-
+    before_action :find_project, only: [:show, :edit, :update, :destroy]
     def show
-        # @ added in order to make the project object available to the whole app
-        # without @ , project object will only be available to show function
-        @project = Project.find(params[:id])
     end
     
     def index
@@ -22,7 +18,7 @@ class ProjectsController < ApplicationController
 
     def create
         @user = current_user
-        @project = @user.projects.build(params.require(:project).permit(:project_name, :description))
+        @project = @user.projects.build(project_params)
         #@project = Project.new(params.require(:project).permit(:project_name, :description))
 
         if @project.save
@@ -34,13 +30,11 @@ class ProjectsController < ApplicationController
     end
 
     def edit
-        @project = Project.find(params[:id])
         authorize! :update, @project
     end
 
     def update
-        @project = Project.find(params[:id])
-        if @project.update(params.require(:project).permit(:project_name, :description))
+        if @project.update(project_params)
             flash[:notice] = "Project was updated successfully"
             redirect_to project_path(@project.id)
         else
@@ -49,9 +43,16 @@ class ProjectsController < ApplicationController
     end
 
     def destroy
-        @project = Project.find(params[:id])
         authorize! :destroy, @project
         @project.destroy
         redirect_to manage_projects_path
+    end
+
+    def find_project
+        @project = Project.find(params[:id])
+    end
+
+    def project_params
+        params.require(:project).permit(:project_name, :description)
     end
 end
