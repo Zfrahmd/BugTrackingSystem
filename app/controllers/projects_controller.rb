@@ -1,10 +1,17 @@
 class ProjectsController < ApplicationController
+    #load_and_authorize_resource
     before_action :find_project, only: [:show, :edit, :update, :destroy]
     def show
     end
     
     def index
-        @projects = Project.all
+        if current_user.manager?
+            @projects = Project.where(user_id: current_user.id)
+        elsif current_user.qa?
+            @projects = Project.where(qa_id: current_user.id)
+        else 
+            @projects = Project.where(dev_id: current_user.id)
+        end
     end
 
     def manage
@@ -18,7 +25,9 @@ class ProjectsController < ApplicationController
 
     def create
         @user = current_user
+        #@dev_user = User.find(3)
         @project = @user.projects.build(project_params)
+        #@project = @dev_user.projects.build(project_params)
         #@project = Project.new(params.require(:project).permit(:project_name, :description))
 
         if @project.save
@@ -53,6 +62,6 @@ class ProjectsController < ApplicationController
     end
 
     def project_params
-        params.require(:project).permit(:project_name, :description)
+        params.require(:project).permit(:project_name, :description, :dev_id, :qa_id)
     end
 end

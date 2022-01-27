@@ -1,9 +1,8 @@
 <div class="container py-3 my-5 bg_container text-center">
     <div class="row">
-    <h2><strong>All Bugs</strong></h2>
+    <h2><strong>Manage Bugs</strong></h2>
     </div>
     <hr class="my-4">
-
     <div class="row">     
         <% if @bugs.exists? %>
             <% @bugs.each do |bug|%>
@@ -14,7 +13,7 @@
                             <p class="card-title"><%= truncate(bug.title, length: 32)%></p>
                             <p class="card-text"><%= truncate(bug.description, length: 32)%></p>
                             <p>Bug Type: <%= bug.bug_type%></p>
-                            <p>Belongs to User: &nbsp;<%= bug.user_id%></p>
+                            <p>Creator: &nbsp;<%= bug.user_id%></p>
                             <p>Belongs to Project: &nbsp;<%= bug.project_id%></p>
                             <p>Feature Status: &nbsp;<%= bug.feature_status%></p>
                             <p>Bug Status: &nbsp;<%= bug.bug_status%></p>
@@ -30,6 +29,8 @@
                     </div>
                 </div>
             <% end %>        
+        <% else%>
+            <div class="text-center"><h4>No Bug Exists</h4></div>
         <% end %>
     </div>
 </div>

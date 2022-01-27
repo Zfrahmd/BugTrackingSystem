@@ -13,6 +13,16 @@
             </p>
 
             <p>
+            <%= f.label :select_developer%><br/>
+            <%= f.select :dev_id, User.developer.collect {|user| [ user.username, user.id ]}, {}, {class:"form-select"} %>
+            </p>
+
+            <p>
+            <%= f.label :select_QA%><br/>
+            <%= f.select :qa_id, User.qa.collect {|user| [ user.username, user.id ] }, {}, {class:"form-select"} %>
+            </p>
+
+            <p>
                 <%= f.submit class: "btn btn-outline-success"%>
             </p>
 

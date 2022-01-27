@@ -1,11 +1,17 @@
 class BugsController < ApplicationController
+    #load_and_authorize_resource
     before_action :find_bug, only: [:show, :edit, :update, :destroy]
 
     def show  
     end
 
     def index
-        @bugs = Bug.all
+        if current_user.developer?
+            dev_project = Project.where(dev_id: current_user.id)
+            @bugs = Bug.where(project_id: dev_project.ids)    
+        else
+            @bugs = Bug.where(user_id: current_user.id)
+        end        
     end
 
     def manage
@@ -13,6 +19,7 @@ class BugsController < ApplicationController
     end
 
     def new
+        @projects = Project.all
         @bug = Bug.new
         authorize! :create, @bug
     end

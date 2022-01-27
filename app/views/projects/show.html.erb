@@ -9,7 +9,9 @@
     <div class="text-center">
         <p>Project Name: <%= @project.project_name%></p>
         </p>Project Description: <%= @project.description%></p>
-        </p>Belongs to User: <%= @project.user_id%></p>
+        <p>Creator: <%= @project.user_id%></p>
+        <p>Assigned to developer: &nbsp;<%= @project.dev_id%></p>
+        <p>Assigned to Qa: &nbsp;<%= @project.qa_id%></p>
     </div>
 
     <div class="py-3">    

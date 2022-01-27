@@ -39,7 +39,7 @@
 
             <p>
             <%= f.label :select_project%><br/>
-            <%= f.select :project_id, Project.all.collect {|key| [ key.project_name, key.id ] }, {}, {class:"form-select"} %>
+            <%= f.select :project_id, Project.where(qa_id: current_user.id).collect {|key| [ key.project_name, key.id ] }, {}, {class:"form-select"}%>
             </p>
 
             <p>
